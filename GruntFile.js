@@ -1,6 +1,11 @@
 module.exports = function (grunt) {
 
     grunt.initConfig({
+        exec: {
+            ember_serve: {
+              command: 'cd web && ember serve'
+            }
+          },
         express: {
             options: {
                 // Override defaults here
@@ -32,9 +37,9 @@ module.exports = function (grunt) {
     });
 
     grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-exec');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-express-server');
 
-    grunt.registerTask('default', ['jshint',  'express:dev', 'watch']);
-
+    grunt.registerTask('default', ['jshint', 'exec:ember_serve', 'express:dev', 'watch']);
 };
