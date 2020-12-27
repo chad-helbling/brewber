@@ -2,6 +2,9 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
         exec: {
+            api: {
+              command: 'cd api && node server.js'
+            },
             ember_serve: {
               command: 'cd web && ember serve'
             }
@@ -12,7 +15,8 @@ module.exports = function (grunt) {
             },
             dev: {
                 options: {
-                    script: 'api/server.js'
+                    script: 'api/server.js',
+                    node_env: 'dev'
                 }
             },
             prod: {
@@ -41,5 +45,5 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-express-server');
 
-    grunt.registerTask('default', ['jshint', 'exec:ember_serve', 'express:dev', 'watch']);
+    grunt.registerTask('default', ['jshint',  'exec:ember_serve', 'express:dev']);
 };
