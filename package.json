@@ -3,19 +3,19 @@
   "version": "1.0.0",
   "description": "brewber",
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+    "concurrently": "^5.3.0"
+  },
   "devDependencies": {
-    "grunt": "^1.0.2",
-    "grunt-contrib-jshint": "^1.1.0",
-    "grunt-contrib-watch": "^1.0.0",
-    "grunt-exec": "^3.0.0",
-    "grunt-express-server": "^0.5.4",
     "nodemon": "^1.17.3",
     "request": "^2.85.0",
     "request-promise": "^4.2.2"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "local-api": "cd api && node server.js",
+    "local-client": "cd web && ember s",
+    "local": "concurrently \"npm run local-api\" \"npm run local-client\""
   },
   "author": "chadhelbling",
   "license": "ISC"

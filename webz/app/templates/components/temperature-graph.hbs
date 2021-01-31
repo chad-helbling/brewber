@@ -1,0 +1,31 @@
+<div class="row">
+    <div class="col-md-10">
+        <canvas class="my-4 chartjs-render-monitor" id="myChart" width="1194" height="504" style="display: block; height: 252px; width: 597px;"></canvas>
+    </div>
+    <div class="col-md-2">
+        {{temperature-table temperatureList=this.temperatureListSorted}}
+    </div>
+</div>
+<div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col">
+                <label for="mashtemp">Target Mash Temp</label>
+                {{input id="mashtemp" type="number" value=this.mashTemp}}
+            </div>
+            <div class="col">
+                <label for="myonoffswitch">Track Temperature</label>
+                <div class="onoffswitch">
+                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" tabindex="0" checked={{this.trackingTemperature}}
+                        onclick={{action 'toggleTempTracking'}}>
+                    <label class="onoffswitch-label" for="myonoffswitch">
+                        <span class="onoffswitch-inner"></span>
+                        <span class="onoffswitch-switch"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
