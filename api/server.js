@@ -4,9 +4,10 @@ const path = require('path');
 const http = require('http');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const { setupArduino } = require('./components/arduino-interface');
 
-// Get our API routes
-const api = require('./routes/api');
+//setup arduino
+setupArduino();
 
 const app = express();
 
@@ -40,12 +41,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'dist')));
 
 // Set our api routes
-app.use('/api', api);
-
-// Catch all other routes and return the index file
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../web/dist/index.html'));
-});
+require('./routes/api')(app);
 
 /**
  * Get port from environment and store in Express.
@@ -62,3 +58,4 @@ const server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 server.listen(port, () => console.log(`API running on localhost:${port}`));
+

@@ -11,6 +11,7 @@ export default Component.extend({
   api: service(),
 
   trackingTemperature: false,
+  pumpToggle: false,
   mashTemp: 150,
   temperatureList: A(),
   temperatureListTruncated: computed('temperatureList.[]', function() {
@@ -85,7 +86,17 @@ export default Component.extend({
         const { temperature } = temperatureResult.data
         this.temperatureList.pushObject(temperature);
         this.addData(temperatureChart, `${temperature}`, temperature, 0);
-        later(() => this.getTemperature(), 1000);
+        later(() => this.getTemperature(), 10000);
+      }
+    },
+
+    async sendTogglePump() {
+      if (this.trackingTemperature) {
+        const temperatureResult = await this.get('api').get('http://localhost:8080/api/temperature');
+        const { temperature } = temperatureResult.data
+        this.temperatureList.pushObject(temperature);
+        this.addData(temperatureChart, `${temperature}`, temperature, 0);
+        later(() => this.getTemperature(), 10000);
       }
     },
 
@@ -124,8 +135,11 @@ export default Component.extend({
         if (this.trackingTemperature) {
           this.getTemperature();
         }
+      },
+
+      togglePump() {
+        this.toggleProperty('pumpToggle');
+        this.sendTogglePump();
       }
-
-
     }
 });

@@ -1,6 +1,7 @@
 <div class="row">
     <div class="col-md-10">
-        <canvas class="my-4 chartjs-render-monitor" id="myChart" width="1194" height="504" style="display: block; height: 252px; width: 597px;"></canvas>
+        <canvas class="my-4 chartjs-render-monitor" id="myChart" width="1194" height="504"
+            style="display: block; height: 252px; width: 597px;"></canvas>
     </div>
     <div class="col-md-2">
         {{temperature-table temperatureList=this.temperatureListSorted}}
@@ -14,11 +15,22 @@
                 {{input id="mashtemp" type="number" value=this.mashTemp}}
             </div>
             <div class="col">
-                <label for="myonoffswitch">Track Temperature</label>
+                <label for="tempswitch">Track Temperature</label>
                 <div class="onoffswitch">
-                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" tabindex="0" checked={{this.trackingTemperature}}
-                        onclick={{action 'toggleTempTracking'}}>
-                    <label class="onoffswitch-label" for="myonoffswitch">
+                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="tempswitch" tabindex="0"
+                        checked={{this.trackingTemperature}} onclick={{action 'toggleTempTracking' }}>
+                    <label class="onoffswitch-label" for="tempswitch">
+                        <span class="onoffswitch-inner"></span>
+                        <span class="onoffswitch-switch"></span>
+                    </label>
+                </div>
+            </div>
+            <div class="col">
+                <label for="pumpswitch">Toggle Pump</label>
+                <div class="onoffswitch">
+                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="pumpswitch" tabindex="0"
+                        checked={{this.pumpToggle}} onclick={{action 'togglePump' }}>
+                    <label class="onoffswitch-label" for="pumpswitch">
                         <span class="onoffswitch-inner"></span>
                         <span class="onoffswitch-switch"></span>
                     </label>
@@ -27,5 +39,3 @@
         </div>
     </div>
 </div>
-
-

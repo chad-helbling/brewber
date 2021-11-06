@@ -1,28 +1,14 @@
-// express libs
-const express = require('express');
-const router = express.Router();
-
-//libs
-const requestP = require('request-promise');
-
-//components
-const arduinoInterface = require('../components/arduino-interface');
-arduinoInterface.setupArduino();
+const temperature = require('./temperature.js');
+const pumpRelay = require('./pump-relay.js')
 
 
-/* GET api listing. */
-router.get('/', (req, res) => {
-  res.send('api works');
-});
+module.exports = function(app) {
+  /* GET api listing. */
+  app.get('/', (req, res) => {
+    res.send('api works');
+  });
 
-router.get("/temperature", (req, res) => { 
-  try {
-    const temperature = arduinoInterface.getTemperature();
-    res.send({temperature});
-  } catch (error) {
-    console.log(error);
-    res.sendStatus(500);
-  }
-});
 
-module.exports = router;
+  app.use('/temperature', temperature);
+  app.use('/pump-relay', pumpRelay);
+};
