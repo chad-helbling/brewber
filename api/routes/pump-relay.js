@@ -3,7 +3,7 @@ const router = express.Router();
 
 const { togglePumpRelay } = require('../components/arduino-interface.js');
 
-router.post('/', (req, res) => { 
+router.get('/', (req, res) => { 
   try {
     togglePumpRelay();
     res.send({ success: true });

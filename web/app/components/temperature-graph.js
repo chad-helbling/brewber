@@ -82,7 +82,7 @@ export default Component.extend({
 
     async getTemperature() {
       if (this.trackingTemperature) {
-        const temperatureResult = await this.get('api').get('http://localhost:8080/api/temperature');
+        const temperatureResult = await this.get('api').get('http://localhost:8080/temperature');
         const { temperature } = temperatureResult.data
         this.temperatureList.pushObject(temperature);
         this.addData(temperatureChart, `${temperature}`, temperature, 0);
@@ -91,13 +91,12 @@ export default Component.extend({
     },
 
     async sendTogglePump() {
-      if (this.trackingTemperature) {
-        const temperatureResult = await this.get('api').get('http://localhost:8080/api/temperature');
-        const { temperature } = temperatureResult.data
-        this.temperatureList.pushObject(temperature);
-        this.addData(temperatureChart, `${temperature}`, temperature, 0);
-        later(() => this.getTemperature(), 10000);
+      const pumpRelayResult = await this.get('api').get('http://localhost:8080/pump-relay');
+
+      if (pumpRelayResult.success === 'false') {
+        console.error('error toggling pump relay');
       }
+   
     },
 
     addData(chart, label, data, line) {
